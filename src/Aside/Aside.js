@@ -10,7 +10,7 @@ class Aside extends React.Component{
 
         return(
             <aside className="Aside">
-                <Link links={[1,2,3,4,5,6,7,8,9,10,11]}/>
+                <Link links={["Post","Register","Login","Profile"]}/>
             </aside>
         )
     }

@@ -1,22 +1,31 @@
 import React from 'react';
+import {Link as NavLink} from 'react-router-dom';
+
 
 class Link extends React.Component{
     constructor(props){
         super(props)
     }
-
+/* <Link to="/catalog">Catalog</Link>
+                */
     render(){
         let nav = this.props.nav;
         let linkData = this.props.links;
         let links = linkData.map((link)=>{
+            let toMessage = `/${link.toLowerCase()}`;
             return (<li className="listItem">
-                <a href="#">Going to {link} </a>
+            
+                <NavLink to={toMessage}>{link}</NavLink> 
+                
             </li>)
+            
         })
         if(nav == "nav"){
             return(
                 <ul>
-                    <img className="listItem" src="white-origami-bird.png"/>
+                <NavLink to="/">
+                    <img className="listItem" src="white-origami-bird.png" alt="home route image" />
+                </NavLink> 
                     {links}
                 </ul>
             )
@@ -24,7 +33,9 @@ class Link extends React.Component{
             return(
                 <ul>
                     {links}
-                    <img className="listItem" src="blue-origami-bird-flipped.png"/>
+                    <NavLink to="/">
+                        <img className="listItem" src="blue-origami-bird-flipped.png" />
+                    </NavLink>
                 </ul>
             )
         }else{

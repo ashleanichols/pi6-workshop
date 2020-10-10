@@ -16,23 +16,21 @@ import Login from '../Forms/Login';
 function App(props){
     return(
         <div className="App">
-            <Navigation /> 
-            <div className="Container">
-                <Aside />
-                <Router>
+            <Router>
+                <Navigation /> 
+                <div className="Container">
+                    <Aside />
                     <Switch>
                         <Route path="/" exact component={Main}/>
-                        <Route path="/input" component={Input}/>
+                        <Route path="/post" component={Input}/>
                         <Route path="/register" component={Register}/>
                         <Route path="/login" component={Login}/>
-                        <Route path="/user" component={User}/>
+                        <Route path="/profile" component={User}/>
                         <Route component={FourOFour}/>
                     </Switch>
-
-                </Router>
-            </div>
-            
-            <Footer />
+                </div>
+                <Footer />
+            </Router>
         </div>
     )
 }

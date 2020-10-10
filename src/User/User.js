@@ -1,6 +1,7 @@
 import React from 'react';
 import "./User.css";
-
+import Posts from "../Posts/Posts";
+import {getData} from "../services/getPosts";
 class User extends React.Component{
     constructor(props){
         super(props)
@@ -8,12 +9,18 @@ class User extends React.Component{
             userInfo:{}
         }
     }
-    updateUser(){
+    componentDidMount() {
+        getData().then((data) => {
+          this.setState({ data });
+        });
 
-    }
+      }
+
+    // add logout button w/ appropriate method calls and a redirect to home page
+
     render(){
 
-        return(<div className = "Pofile">
+        return(<div className = "Profile">
                 <img src="https://via.placeholder.com/150x150.jpg" alt="profile-picture" />
                 <div className="personal-info">
                     <p>
@@ -28,7 +35,7 @@ class User extends React.Component{
                 </div>
                 <div>
                     <h3>Last 3 posts to your wall</h3>
-                    {this.props.children}
+                    <Posts data={this.state.data} />
                 </div>
                     
             </div>
