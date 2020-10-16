@@ -19,7 +19,7 @@ module.exports = {
                 ]);
             })
             .then(([modifiedObj, origamiObj]) => {
-                res.send(origamiObj);
+                res.status(201).send(origamiObj);
             })
             .catch(next);
     },

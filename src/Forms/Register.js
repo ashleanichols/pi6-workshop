@@ -120,7 +120,11 @@ class Register extends React.Component{
         }
     }
 
-
+    componentDidMount() {
+        if(document.cookie.indexOf("x-auth-token") !== -1){
+            this.props.history.push("/404");
+        }
+    }
 
     submitHandler(event){
         event.preventDefault();

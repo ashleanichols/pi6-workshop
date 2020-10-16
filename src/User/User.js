@@ -1,13 +1,17 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import "./User.css";
 import Posts from "../Posts/Posts";
+
 import {getData} from "../services/getPosts";
+import {logoutUser} from "../services/logoutUser";
 class User extends React.Component{
     constructor(props){
         super(props)
         this.state = {
             userInfo:{}
         }
+        this.buttonHandler= this.buttonHandler.bind(this);
     }
     componentDidMount() {
         getData().then((data) => {
@@ -17,7 +21,19 @@ class User extends React.Component{
       }
 
     // add logout button w/ appropriate method calls and a redirect to home page
-
+    buttonHandler(event){
+        event.preventDefault();
+        logoutUser().then(res=>{
+            console.log("are we changing pages?")
+            
+            console.log(document.cookie.indexOf("x-auth-token") === -1);
+            console.log(res);
+            if(res || document.cookie.indexOf("x-auth-token") === -1){
+               
+                this.props.history.push("/");
+            }
+        })
+    }
     render(){
 
         return(<div className = "Profile">
@@ -31,7 +47,7 @@ class User extends React.Component{
                         <span>Posts:</span>
                         9
                     </p>
-                   
+                    <button onClick={this.buttonHandler} >Logout</button>
                 </div>
                 <div>
                     <h3>Last 3 posts to your wall</h3>
@@ -45,4 +61,4 @@ class User extends React.Component{
 }
 
 
-export default User;
+export default withRouter(User);
