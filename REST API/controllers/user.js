@@ -1,6 +1,8 @@
 const models = require('../models');
 const config = require('../config/config');
 const utils = require('../utils');
+const jwt = require('../utils/jwt');
+const { Promise } = require('mongoose');
 
 module.exports = {
     get: (req, res, next) => {
@@ -9,9 +11,34 @@ module.exports = {
             .catch(next)
     },
 
+    getInfo: (req, res, next) => {
+        console.log("getting one!");
+        let {id} = req.params;
+        console.log(id,typeof(id));
+        if(id == undefined||id == "undefined"){
+            const token = req.cookies[config.authCookieName] || '';
+            jwt.verifyToken(token).then(tokenData=>{
+                console.log(tokenData)
+                id = tokenData.id;
+                models.User.findById(id)
+                .then((user) => res.send(user))
+                .catch(next);
+            }).catch(next)
+            
+        }else{
+            console.log(id);
+            models.User.findById(id)
+                .then((user) => res.send(user))
+                .catch(next);
+        }
+       
+    },
+
     post: {
         register: (req, res, next) => {
             const { username, password } = req.body;
+            console.log(req.body)
+            console.log(username,password);
             //if(password==rePassword){
                 models.User.create({ username, password })
                 .then((createdUser) => res.send(createdUser))
