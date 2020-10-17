@@ -5,21 +5,22 @@ import Link from "../Link/Link";
 
 class Navigation extends React.Component{
     constructor(props){
-        super(props)
+        super(props);
         this.state={
             loggedIn:(document.cookie.indexOf("x-auth-token") !== -1)
-        }
+        };
     }
-    // componentDidMount(){
-    //     this.setState({
-    //         loggedIn:(document.cookie.indexOf("x-auth-token") !== -1)
-    //     });
-    // }
-    componentDidUpdate(){
+    componentDidMount(){
+        //console.log("Nav Rest");
         this.setState({
             loggedIn:(document.cookie.indexOf("x-auth-token") !== -1)
         });
     }
+    // componentDidUpdate(){
+    //     this.setState({
+    //         loggedIn:(document.cookie.indexOf("x-auth-token") !== -1)
+    //     });
+    // }
     render(){
         let link;
         //this.props.appState();
